@@ -1,0 +1,10 @@
+pip==20.1
+numpy
+pandas
+scikit-learn
+matplotlib
+keras
+tensorflow
+opencv-python
+TextBlob
+teststat
