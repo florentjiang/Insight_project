@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Post2Success by Yao Jiang</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../static/assets/css/main.css" />
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="/">Post2Success <span>by Yao Jiang</span></a></div>
+			</header>
+
+		<!-- Main -->
+			<section id="main">
+				<div class="inner">
+					<div class="wrapper style1">
+						<div class="content">
+
+							<!-- Elements -->
+								<h2 id="elements">Results</h2>
+								<div class="row 200%">
+									<div class="6u 12u$(medium)">
+
+										<!-- Text stuff -->
+											{% if output_like > 2025 %}
+											<p>Your post is an excellent post, it will attract a lot of attention ( number of likes ) and rank top 25% among movie release posts on social media platform.</p>
+											{% elif output_like > 332 %}
+											<p>Your post is pretty good, the number of likes will rank on top 25% to 50% among movie release posts on social media platform. There is still room to improve.</p>
+											{% elif output_like > 55 %}
+											<p>Your post is ordinary, the number of likes will be slightly below average among movie release posts, you may want some minor modification to make it more attractive.</p>
+											{% else %}
+											<p>Unfortunately, your post doesn't seem to be attractive, it will rank the last 25% among movie release posts on social media platform, you may need some improvments.</p>
+											{% endif %}
+										<!-- Table -->
+										<h3>Prediction results</h3>
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Description</th>
+														<th>Ranking</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Your post could get {{output_like}} like{% if output_like != 1 %}s{% endif %}</td>
+														{% if output_like > 2025 %}
+														<td>Top 25%</td>
+														{% elif output_like > 332 %}
+														<td>Top 50%~25%</td>
+														{% elif output_like > 55 %}
+														<td>Top 75%~50%</td>
+														{% else %}
+														<td>Bottom 25%</td>
+														{% endif %}
+													</tr>
+													<tr>
+														<td>Your post could get {{output_comment}} comment{% if output_comment != 1 %}s{% endif %}</td>
+														{% if output_comment > 81 %}
+														<td>Top 25%</td>
+														{% elif output_comment > 22 %}
+														<td>Top 50%~25%</td>
+														{% elif output_comment > 5 %}
+														<td>Top 75%~50%</td>
+														{% else %}
+														<td>Bottom 25%</td>
+														{% endif %}
+													</tr>
+													<tr>
+														<td>Your post could get {{output_share}} share{% if output_share != 1 %}s{% endif %}</td>
+														{% if output_share > 132 %}
+														<td>Top 25%</td>
+														{% elif output_share > 25 %}
+														<td>Top 50%~25%</td>
+														{% elif output_share > 1 %}
+														<td>Top 75%~50%</td>
+														{% else %}
+														<td>Bottom 25%</td>
+														{% endif %}
+													</tr>
+												</tbody>
+												<tfoot>
+												</tfoot>
+											</table>
+										</div>
+
+										<!-- Table -->
+										<h3>Post analysis</h3>
+										<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Feature</th>
+														<th>Description</th>
+														<th>Ranking</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Image</td>
+														{% if image_score > 0.94073439 %}
+														<td>Your have a strong image.</td>
+														<td>Top 25%</td>
+														{% elif image_score > 0.93580091 %}
+														<td>Your have an average image.</td>
+														<td>Average</td>
+														{% else %}
+														<td>Your have a weak image.</td>
+														<td>Bottom 25%</td>
+														{% endif %}
+													</tr>
+													<tr>
+														<td>Text</td>
+														{% if text_score > 5.9534874  %}
+														<td>Your have a strong text.</td>
+														<td>Top 25%</td>
+														{% elif text_score > 2.24702764 %}
+														<td>Your have an average text.</td>
+														<td>Average</td>
+														{% else %}
+														<td>Your have a weak text.</td>
+														<td>Bottom 25%</td>
+														{% endif %}
+													</tr>
+													<tr>
+														<td>Sentiment</td>
+														<td> {{sentiment}}</td>
+														{% if sentiment*sentiment > 0.6 %}
+														<td>Strong</td>
+														{% elif sentiment*sentiment > 0.2 %}
+														<td>Medium-strong</td>
+														{% elif sentiment*sentiment > 0.02 %}
+														<td>Medium</td>
+														{% else %}
+														<td>Neural</td>
+														{% endif %}
+													</tr>
+													<tr>
+														<td>Readability</td>
+														<td>{{readability}}</td>
+														{% if readability > 9.3 %}
+														<td>Hard</td>
+														{% elif readability > 5 %}
+														<td>Medium</td>
+														{% elif readability > 2 %}
+														<td>Easy-medium</td>
+														{% else %}
+														<td>Easy</td>
+														{% endif %}
+													</tr>
+												</tbody>
+												<tfoot>
+												</tfoot>
+											</table>
+										</div>
+
+										<!-- Lists -->
+											<h3>Suggestions</h3>
+											<div class="row 200%">
+												<ul>
+													{% if text_score < 4.34009266 %}
+													<li>Your text could be improved.</li>
+													{% endif %}
+													{% if readability > 5 %}
+													<li>Make your post easier to read.</li>
+													{% endif %}
+													{% if sentiment < 0.3 %}
+													<li>Make your words more exciting.</li>
+													{% endif %}
+													{% if image_score < 0.94001102 %}
+													<li>Your image could be improved, try a more appealing one.</li>
+													{% endif %}
+												</ul>												
+											</div>
+
+									</div>
+									<div class="6u$ 12u$(medium)">
+										<!-- Image -->
+											<h3>Your image in the post</h3>
+											<span class="image fit"><img src="{{image_path}}" alt="" /></span>
+
+											<h3>Your text in the post</h3>
+											<p>{{post}}</p>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="https://twitter.com/yaojian64222164" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.facebook.com/profile.php?id=100001566004545" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="https://www.instagram.com/florentjiang/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="mailto: yaojiang.tls@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					Copyright &copy; Yao Jiang 2020
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="../static/assets/js/jquery.min.js"></script>
+			<script src="../static/assets/js/jquery.poptrox.min.js"></script>
+			<script src="../static/assets/js/skel.min.js"></script>
+			<script src="../static/assets/js/util.js"></script>
+			<script src="../static/assets/js/main.js"></script>
+
+	</body>
+</html>
