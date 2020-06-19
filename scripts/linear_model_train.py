@@ -2,13 +2,13 @@ import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 import math
+from post2success import config
 import pickle
-
-model_path="../models/"
+import os
 
 def linear_model_train():
 # data loading and cleaning
-    data_raw=pd.read_csv('linear.csv')
+    data_raw=pd.read_csv(config.post_target_path)
     data=data_raw.loc[data_raw['page_post']==1].dropna()
     data['sentiment_sq']=data['sentiment']*data['sentiment']
     data['ln_word']=np.log(data['word'])
@@ -24,12 +24,12 @@ def linear_model_train():
     model_share = LinearRegression().fit(X, y_nb_share)
 
 # model saving
-    filename = 'like_model.sav'
-    pickle.dump(model_like, open(model_path+filename, 'wb'))
-    filename = 'comment_model.sav'
-    pickle.dump(model_comment, open(model_path+filename, 'wb'))
-    filename = 'share_model.sav'
-    pickle.dump(model_share, open(model_path+filename, 'wb'))
+    filename = 'linear_like_model.pkl'
+    pickle.dump(model_like, open(os.path.join(config.model_dir,filename), 'wb'))
+    filename = 'linear_comment_model.pkl'
+    pickle.dump(model_comment, open(os.path.join(config.model_dir,filename), 'wb'))
+    filename = 'linear_share_model.pkl'
+    pickle.dump(model_share, open(os.path.join(config.model_dir,filename), 'wb'))
 
 # train the linear regression model
 if __name__ == "__main__":

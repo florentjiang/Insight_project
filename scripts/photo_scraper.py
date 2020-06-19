@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 import socket
 from post2success import config
-
+import os
 # read movie channel username stored in csv file
 # read posts stored in pickle file
 
@@ -20,11 +20,12 @@ def photo_scraper():
                 for post in movie['posts']:
                     if post['image'] and post['post_id']:
                         photo_url = post['image']
-                        local_address = str(config.photo_dir)+item+'_'+post['post_id']+'.jpg'
+                        filename = item+'_'+post['post_id']+'.jpg'
+                        local_address = os.path.join(config.photo_dir,filename)
                         try:
                             socket.setdefaulttimeout(10)
                             urllib.request.urlretrieve(photo_url, local_address)
-                        except Exception as e:
+                        except Exception:
                             print("error for post id: "+post['post_id'])
     return
 # run the photo scraper
