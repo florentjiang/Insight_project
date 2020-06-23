@@ -1,0 +1,8 @@
+# post and image data
+data/
+
+# uploads from web front end
+web-app/static/uploads
+
+# models
+models/
